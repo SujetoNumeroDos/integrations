@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { label: "Inicio",    href: "#inicio" },
@@ -24,75 +25,61 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#060D1F]/95 backdrop-blur-md border-b border-white/5"
+          ? "bg-white/95 dark:bg-[#060D1F]/95 backdrop-blur-md border-b border-black/5 dark:border-white/5"
           : "bg-transparent"
       }`}
     >
-      {/* Línea dorada superior */}
       <div className="h-px bg-[#F2B800] w-full" />
 
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo — solo texto, sin pill */}
         <a href="#inicio" className="flex items-center gap-3">
           <div className="w-7 h-7 bg-[#1A4F8C] flex items-center justify-center">
             <span className="text-[#F2B800] font-bold text-base leading-none">I</span>
           </div>
           <div className="flex flex-col leading-none">
-            <span className="font-bold text-white text-xs tracking-[0.15em] uppercase">ICHTUS</span>
-            <span className="text-[10px] text-[#F0F4FA]/35 tracking-wider uppercase">Technology</span>
+            <span className="font-bold text-[#0A1628] dark:text-white text-xs tracking-[0.15em] uppercase">ICHTUS</span>
+            <span className="text-[10px] text-[#0A1628]/40 dark:text-[#F0F4FA]/35 tracking-wider uppercase">Technology</span>
           </div>
         </a>
 
-        {/* Links desktop */}
         <ul className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-xs text-[#F0F4FA]/50 hover:text-white transition-colors tracking-wide"
-              >
+              <a href={l.href} className="text-xs text-[#0A1628]/50 dark:text-[#F0F4FA]/50 hover:text-[#0A1628] dark:hover:text-white transition-colors tracking-wide">
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
 
-        {/* CTA */}
-        <a
-          href="#contacto"
-          className="hidden md:inline-block bg-[#F2B800] text-[#060D1F] font-semibold text-xs px-5 py-2.5 hover:bg-[#F2B800]/90 transition-colors tracking-wide uppercase"
-        >
-          Cotizar
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+          <a
+            href="#contacto"
+            className="bg-[#F2B800] text-[#060D1F] font-semibold text-xs px-5 py-2.5 hover:bg-[#F2B800]/90 transition-colors tracking-wide uppercase"
+          >
+            Cotizar
+          </a>
+        </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-white text-2xl leading-none"
-          onClick={() => setOpen(!open)}
-          aria-label="Menú"
-        >
-          {open ? "✕" : "☰"}
-        </button>
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
+          <button className="text-[#0A1628] dark:text-white text-xl" onClick={() => setOpen(!open)} aria-label="Menú">
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#060D1F] border-t border-white/5 px-6 py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-white dark:bg-[#060D1F] border-t border-black/5 dark:border-white/5 px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-[#F0F4FA]/60 hover:text-white transition-colors text-sm"
-            >
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)}
+              className="text-[#0A1628]/60 dark:text-[#F0F4FA]/60 hover:text-[#0A1628] dark:hover:text-white transition-colors text-sm">
               {l.label}
             </a>
           ))}
-          <a
-            href="#contacto"
-            onClick={() => setOpen(false)}
-            className="mt-2 bg-[#F2B800] text-[#060D1F] font-semibold text-xs px-5 py-3 text-center uppercase tracking-wide"
-          >
+          <a href="#contacto" onClick={() => setOpen(false)}
+            className="mt-2 bg-[#F2B800] text-[#060D1F] font-semibold text-xs px-5 py-3 text-center uppercase tracking-wide">
             Cotizar
           </a>
         </div>
